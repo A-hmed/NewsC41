@@ -3,6 +3,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#A0A0A0</color>
-    <color name="primary_dark">#171717</color>
-    <color name="primary_">#FFFFFFFF</color>
+    <color name="primary">#171717</color>
 </resources>
