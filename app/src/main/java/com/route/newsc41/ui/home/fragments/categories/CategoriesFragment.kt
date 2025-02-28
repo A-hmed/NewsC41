@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.route.newsc41.api.model.CategoryDM
 import com.route.newsc41.databinding.FragmentCategoriesBinding
 
+
 class CategoriesFragment(val onCategoryClick: (CategoryDM) -> Unit) : Fragment() {
     var categoriesAdapter = CategoriesAdapter(CategoryDM.categories, onCategoryClick)
     lateinit var binding: FragmentCategoriesBinding
