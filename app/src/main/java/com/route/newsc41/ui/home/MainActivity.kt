@@ -8,7 +8,9 @@ import com.route.newsc41.R
 import com.route.newsc41.databinding.ActivityMainBinding
 import com.route.newsc41.ui.home.fragments.categories.CategoriesFragment
 import com.route.newsc41.ui.home.fragments.news_fragment.NewsFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     var categoriesFragment = CategoriesFragment {

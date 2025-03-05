@@ -1,4 +1,4 @@
-package com.route.newsc41.api.model
+package com.route.newsc41.data.model
 
 import com.route.newsc41.R
 

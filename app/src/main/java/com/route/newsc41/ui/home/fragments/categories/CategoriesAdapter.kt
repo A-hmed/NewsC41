@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.route.newsc41.api.model.CategoryDM
+import com.route.newsc41.data.model.CategoryDM
 import com.route.newsc41.databinding.ItemCategoryLeftSidedButtonBinding
 import com.route.newsc41.databinding.ItemCategoryRightSidedButtonBinding
 

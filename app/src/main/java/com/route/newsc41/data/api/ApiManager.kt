@@ -1,6 +1,6 @@
-package com.route.newsc41.api
+package com.route.newsc41.data.api
 
-import com.route.newsc41.api.web_services.WebServices
+import com.route.newsc41.data.api.web_services.WebServices
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 object ApiManager {
-    private const val baseUrl = "https://newsapi.org"
+    const val baseUrl = "https://newsapi.org"
     const val apiKey = "a2803275cc264f5ab82151862011361a"
     private var retrofit = Retrofit.Builder()
         .client(getOkHttpClient())

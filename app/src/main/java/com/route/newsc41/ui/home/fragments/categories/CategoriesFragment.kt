@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.route.newsc41.api.model.CategoryDM
+import com.route.newsc41.data.model.CategoryDM
 import com.route.newsc41.databinding.FragmentCategoriesBinding
 
 

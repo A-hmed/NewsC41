@@ -6,21 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayout
 import com.route.newsc41.ArticlesAdapter
-import com.route.newsc41.api.model.ArticleDM
-import com.route.newsc41.api.model.SourceDM
 import com.route.newsc41.databinding.FragmentNewsBinding
+import com.route.newsc41.domain.model.Article
+import com.route.newsc41.domain.model.Source
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NewsFragment(val categoryId: String) : Fragment() {
     lateinit var binding: FragmentNewsBinding
     private lateinit var adapter: ArticlesAdapter
-    lateinit var viewModel: NewsViewModel
+    private val viewModel by viewModels<NewsViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this)[NewsViewModel::class.java]
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -99,7 +100,7 @@ class NewsFragment(val categoryId: String) : Fragment() {
         })
     }
 
-    private fun showArticles(articles: List<ArticleDM>) {
+    private fun showArticles(articles: List<Article>) {
         binding.articlesRecyclerView.isVisible = true
         adapter.submitList(articles)
     }
@@ -122,11 +123,11 @@ class NewsFragment(val categoryId: String) : Fragment() {
         binding.loadingView.isVisible = false
     }
 
-    private fun showTabs(sources: List<SourceDM?>) {
+    private fun showTabs(sources: List<Source?>) {
 
         sources.forEach {
             val tab = binding.tabLayout.newTab()
-            tab.text = it?.name ?: "Unkown"
+            tab.text = it?.name
             tab.tag = it?.id
             binding.tabLayout.addTab(tab)
         }

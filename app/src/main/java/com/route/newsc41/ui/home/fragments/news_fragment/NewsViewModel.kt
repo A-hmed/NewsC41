@@ -3,25 +3,33 @@ package com.route.newsc41.ui.home.fragments.news_fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.route.newsc41.api.ApiManager
-import com.route.newsc41.api.model.ArticleDM
-import com.route.newsc41.api.model.SourceDM
-import kotlinx.coroutines.Dispatchers
+import com.route.newsc41.domain.model.Article
+import com.route.newsc41.domain.model.Source
+import com.route.newsc41.domain.usecases.GetArticlesUseCase
+import com.route.newsc41.domain.usecases.GetSourcesUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class NewsViewModel : ViewModel() {
-    var sourcesApi = MutableLiveData<Resource<List<SourceDM?>>>()
-    var articlesApi = MutableLiveData<Resource<List<ArticleDM>>>()
+@HiltViewModel
+class NewsViewModel @Inject constructor(
+    private var getSourcesUseCase: GetSourcesUseCase,
+    private var getArticlesUseCase: GetArticlesUseCase
+) : ViewModel() {
+
+    var sourcesApi = MutableLiveData<Resource<List<Source?>>>()
+    var articlesApi = MutableLiveData<Resource<List<Article>>>()
+
     fun getSources(categoryId: String) {
-        sourcesApi.value = Resource.LoadingState()
-        viewModelScope.launch(Dispatchers.IO) {
+        sourcesApi.postValue(Resource.LoadingState())
+        viewModelScope.launch {
             try {
-                val sourcesResponseDM =
-                    ApiManager.getWebServices().getSources(ApiManager.apiKey, categoryId)
-                sourcesApi.value = Resource.SuccessState(sourcesResponseDM.sources!!)
+                val sources = getSourcesUseCase.execute(categoryId)
+                sourcesApi.postValue(Resource.SuccessState(sources))
             } catch (e: Throwable) {
-                sourcesApi.value =
+                sourcesApi.postValue(
                     Resource.ErrorState(e.message ?: "Something went wrong")
+                )
             }
         }
     }
@@ -30,10 +38,9 @@ class NewsViewModel : ViewModel() {
         articlesApi.value = Resource.LoadingState()
         viewModelScope.launch {
             try {
-                val articlesResponse =
-                    ApiManager.getWebServices().getArticles(ApiManager.apiKey, sourceId)
+                val articles = getArticlesUseCase.execute(sourceId)
                 articlesApi.value =
-                    Resource.SuccessState(articlesResponse.articles ?: emptyList())
+                    Resource.SuccessState(articles)
             } catch (e: Throwable) {
                 articlesApi.value =
                     Resource.ErrorState(e.message ?: "Something went wrong")
